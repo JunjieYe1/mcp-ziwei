@@ -9,6 +9,7 @@ class AstroModel:
         self.result = None
         self.horoscope_data = None
         self.settings = Settings()
+        self.logger = Logger()
     
     def create_chart(self, birth_date, birth_time, gender):
         """创建命盘"""
