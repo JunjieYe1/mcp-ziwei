@@ -39,7 +39,7 @@ def create_chart(birth_date: str, birth_time: int, gender: str, target_date: str
     参数：
     - birth_date (str): 出生日期，格式为 YYYY-MM-DD
     - birth_time (int): 出生时辰，0-12，其中0为早子时，1为丑时，2为寅时，3为卯时，4为辰时，5为巳时，6为午时，7为未时，8为申时，9为酉时，10为戌时，11为亥时，12为晚子时
-    - gender (str): 性别，'M' 或 'F'
+    - gender (str): 性别，'男'或者'女'
     - target_date (str, optional): 目标日期，格式为 YYYY-MM-DD。如果不提供，则只返回命盘信息。
 
     返回：
