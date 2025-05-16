@@ -43,7 +43,7 @@ def create_chart(birth_date: str, birth_time: int, gender: str, target_date: str
     - target_date (str, optional): 目标日期，格式为 YYYY-MM-DD。如果不提供，则只返回命盘信息。
 
     返回：
-    - str: 命盘信息，如果提供了目标日期，则还会返回运势信息
+    - str: 命盘信息，如果提供了目标日期，则还会返回运限信息
     """
     try:
         # 创建命盘
