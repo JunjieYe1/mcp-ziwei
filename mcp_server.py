@@ -38,7 +38,7 @@ def create_chart(birth_date: str, birth_time: int, gender: str, target_date: str
 
     参数：
     - birth_date (str): 出生日期，格式为 YYYY-MM-DD
-    - birth_time (int): 出生时辰，0-23
+    - birth_time (int): 出生时辰，0-12，其中0为早子时，1为丑时，2为寅时，3为卯时，4为辰时，5为巳时，6为午时，7为未时，8为申时，9为酉时，10为戌时，11为亥时，12为晚子时
     - gender (str): 性别，'M' 或 'F'
     - target_date (str, optional): 目标日期，格式为 YYYY-MM-DD。如果不提供，则只返回命盘信息。
 
@@ -98,9 +98,24 @@ if __name__ == "__main__":
         parser.add_argument('--port', type=int, default=5173, help='Port to listen on')
         args = parser.parse_args()
 
+        logger.info(f"Starting server on {args.host}:{args.port}")
+
         # 创建并运行 Starlette 应用
         starlette_app = create_starlette_app(mcp_server, debug=True)
-        uvicorn.run(starlette_app, host=args.host, port=args.port)
+        
+        # 配置 uvicorn
+        config = uvicorn.Config(
+            app=starlette_app,
+            host=args.host,
+            port=args.port,
+            log_level="debug",
+            access_log=True,
+            use_colors=False
+        )
+        
+        # 启动服务器
+        server = uvicorn.Server(config)
+        server.run()
     except Exception as e:
         logger.error(f"服务器启动失败: {str(e)}")
         sys.exit(1) 
