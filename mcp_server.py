@@ -5,8 +5,14 @@ from mcp.server.sse import SseServerTransport
 from starlette.requests import Request
 from starlette.routing import Mount, Route
 from mcp.server import Server
+from presenters.astro_presenter import AstroPresenter
 import logging
 import uvicorn
+import sys
+import os
+
+# 添加项目根目录到 Python 路径
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # 定义服务器名称
 MCP_SERVER_NAME = "ziwei-server"
@@ -83,14 +89,18 @@ def create_starlette_app(mcp_server: Server, *, debug: bool = False) -> Starlett
 
 # 主程序入口
 if __name__ == "__main__":
-    mcp_server = mcp._mcp_server
+    try:
+        mcp_server = mcp._mcp_server
 
-    # 解析命令行参数
-    parser = argparse.ArgumentParser(description='Run MCP SSE-based server')
-    parser.add_argument('--host', default='0.0.0.0', help='Host to bind to')
-    parser.add_argument('--port', type=int, default=5173, help='Port to listen on')
-    args = parser.parse_args()
+        # 解析命令行参数
+        parser = argparse.ArgumentParser(description='Run MCP SSE-based server')
+        parser.add_argument('--host', default='0.0.0.0', help='Host to bind to')
+        parser.add_argument('--port', type=int, default=5173, help='Port to listen on')
+        args = parser.parse_args()
 
-    # 创建并运行 Starlette 应用
-    starlette_app = create_starlette_app(mcp_server, debug=True)
-    uvicorn.run(starlette_app, host=args.host, port=args.port) 
+        # 创建并运行 Starlette 应用
+        starlette_app = create_starlette_app(mcp_server, debug=True)
+        uvicorn.run(starlette_app, host=args.host, port=args.port)
+    except Exception as e:
+        logger.error(f"服务器启动失败: {str(e)}")
+        sys.exit(1) 
