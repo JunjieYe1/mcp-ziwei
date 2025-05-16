@@ -36,7 +36,7 @@ def create_chart(birth_date: str, birth_time: int, gender: str, target_date: str
 
 def main():
     """主函数，用于直接运行服务器"""
-    mcp.run(transport='stdio')
+    mcp.run(transport='sse', host='0.0.0.0', port=5173)
 
 if __name__ == "__main__":
     main() 
