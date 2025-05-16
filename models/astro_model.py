@@ -8,15 +8,12 @@ class AstroModel:
         self.astro = Astro()
         self.result = None
         self.horoscope_data = None
-        self.logger = Logger("紫微斗数-模型")
         self.settings = Settings()
     
     def create_chart(self, birth_date, birth_time, gender):
         """创建命盘"""
         try:
-            self.logger.info(f"开始创建命盘: 出生日期={birth_date}, 出生时辰={birth_time}, 性别={gender}")
             self.result = self.astro.by_solar(birth_date, birth_time, gender)
-            self.logger.info("命盘创建成功")
             return True
         except Exception as e:
             self.logger.error(f"创建命盘失败: {str(e)}")
@@ -29,9 +26,7 @@ class AstroModel:
                 self.logger.error("命盘未创建，无法获取运限信息")
                 return False
             
-            self.logger.info(f"开始获取运限信息: 目标日期={target_date}, 时辰={time_index}")
             self.horoscope_data = self.result.horoscope(date=target_date, time_index=time_index)
-            self.logger.info("运限信息获取成功")
             return True
         except Exception as e:
             self.logger.error(f"获取运限信息失败: {str(e)}")

@@ -2,12 +2,12 @@ from importlib import resources
 
 import pythonmonkey as pm
 
-from py_iztro.models import AstrolabeModel, GenderType, LangueType, TimeIndexType
+from .models import AstrolabeModel, GenderType, LangueType, TimeIndexType
 
 
 class Astro:
     def __init__(self):
-        _js_path = resources.files("py_iztro.res") / "iztro-2.5.0.min.js"
+        _js_path = resources.files("iztro.res") / "iztro-2.5.0.min.js"
         _js_obj = pm.require(str(_js_path))
         self._astro = _js_obj.get("astro")
         self._astro.config({
