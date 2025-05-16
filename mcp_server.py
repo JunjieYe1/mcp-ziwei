@@ -46,19 +46,14 @@ def create_chart(birth_date: str, birth_time: int, gender: str, target_date: str
     - str: 命盘信息，如果提供了目标日期，则还会返回运限信息
     """
     try:
-        # 创建命盘
-        chart = presenter.create_chart(birth_date, birth_time, gender)
-        if not chart:
-            return "创建命盘失败"
-
-        # 如果提供了目标日期，获取运势信息
-        if target_date:
-            horoscope = presenter.get_horoscope(chart, target_date)
-            if not horoscope:
-                return "获取运势信息失败"
-            return f"命盘信息：\n{chart}\n\n运势信息：\n{horoscope}"
-        
-        return f"命盘信息：\n{chart}"
+        # 使用正确的方法名
+        result = presenter.create_and_show_chart(
+            birth_date=birth_date,
+            birth_time=birth_time,
+            gender=gender,
+            target_date=target_date
+        )
+        return result
     except Exception as e:
         logger.error(f"创建命盘时发生错误: {str(e)}")
         return f"发生错误: {str(e)}"
